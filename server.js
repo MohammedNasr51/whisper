@@ -19,6 +19,19 @@ app.use(morgan("dev"));
 
 app.get("/health", (_req, res) => res.json({ ok: true }));
 
+const PORT = process.env.PORT || 3000;
+
+// Connect to DB lazily inside a middleware instead of top-level await
+// This prevents serverless deployment warm-up timeouts and crashes
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/questions", questionRoutes);
@@ -29,7 +42,5 @@ app.use(express.static('public'));
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 3000;
-
-await connectDB();
 app.listen(PORT, () => console.log(`whisper listening on ${PORT}`));
+
