@@ -52,8 +52,8 @@ function renderNav() {
         ${user ? `
           <a href="/inbox.html" class="btn btn-ghost btn-sm">Inbox</a>
           <a href="/profile.html" class="btn btn-ghost btn-sm">Profile</a>
-          <a href="/user.html?u=${user.username}" class="btn btn-ghost btn-sm">My page</a>
-          <button id="logoutBtn" class="btn btn-sm btn-outline">Logout (@${user.username})</button>
+          <a href="/user.html?u=${user?.username ?? user?.user?.username}" class="btn btn-ghost btn-sm">My page</a>
+          <button id="logoutBtn" class="btn btn-sm btn-outline">Logout (@${user?.username ?? user?.user?.username})</button>
         ` : `
           <a href="/login.html" class="btn btn-ghost btn-sm">Login</a>
           <a href="/signup.html" class="btn btn-primary btn-sm">Sign up</a>

@@ -6,8 +6,8 @@ import { signupSchema, loginSchema } from '../validations/authSchema.js';
 
 const router = Router();
 
-router.post('/signup', validate(signupSchema), signup);
-router.post('/login', validate(loginSchema), login);
-router.get('/me', authenticate, me);
+router.post("/signup", validate(signupSchema), signup);
+router.post("/login", validate(loginSchema), login);
+router.get("/me", authenticate, me);
 
 export default router;

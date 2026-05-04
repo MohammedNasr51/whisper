@@ -45,20 +45,23 @@ userSchema.set('toJSON', {
     // TODO:
     // Hint: map _id -> id, delete _id, delete passwordHash. Return ret.
     // Purpose: never leak passwordHash through res.json.
-    throw new Error('not implemented');
+    ret.id = ret._id;
+    delete ret._id;
+    delete ret.passwordHash;
+    return ret;
   },
 });
 
 userSchema.methods.comparePassword = function (plain) {
   // TODO:
   // Hint: bcrypt.compare(plain, this.passwordHash) — returns a Promise<boolean>.
-  throw new Error('not implemented');
+  return bcrypt.compare(plain, this.passwordHash);
 };
 
 userSchema.statics.hashPassword = function (plain) {
   // TODO:
   // Hint: bcrypt.hash(plain, 10). Cost 10 is a reasonable default.
-  throw new Error('not implemented');
+  return bcrypt.hash(plain, 10);
 };
 
 export const User = mongoose.model('User', userSchema);
